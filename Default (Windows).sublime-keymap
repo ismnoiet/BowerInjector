@@ -1,0 +1,3 @@
+[
+    { "keys": ["ctrl+y"], "command": "bower_injector","args":{} } 
+]
