@@ -8,13 +8,16 @@ you should have python 3 already installed on your machine
 
 ## Installation
 In order to install this plugin you have two options,
-the manual option and the package control one(will be available very soon)
+the manual option and the package control one(the easy choice)
 
 ### manually
 You can easily install this plugin manually, simply download the zip file and extract it to sublime text   **Packages** folder
 
 ### Package Control
-It will be released soon
+Installation through [package control](http://wbond.net/sublime_packages/package_control) is recommended. It will handle updating your packages as they become available. To install, do the following.
+
+* In the Command Palette, enter `Package Control: Install Package`
+* Search for `BowerInjector`
 
 ## How does it work ?
 Now the plugin is installed and ready to be used.
