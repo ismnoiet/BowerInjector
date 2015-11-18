@@ -21,7 +21,7 @@ Installation through [package control](http://wbond.net/sublime_packages/package
 
 ## How does it work ?
 Now the plugin is installed and ready to be used.
-Let's say that you have a project organised like the following:
+Let's say that you have a project organized like the following:
 
 ```
 myProject/
