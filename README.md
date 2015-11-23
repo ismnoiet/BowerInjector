@@ -37,7 +37,7 @@ myProject/
 
 simply add **bower:css** or **bower:js** to **index.html** depending on what you want to load, generally we want to load them both some we end up with something like that :
 
-```
+```html
 <html>
   <head>
       <!-- load css files -->
