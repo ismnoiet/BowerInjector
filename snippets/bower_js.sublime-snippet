@@ -1,0 +1,7 @@
+<snippet>
+    <content><![CDATA[
+<!-- bower:js -->
+<!-- endbower -->
+]]></content>   
+    <tabTrigger>bower_js</tabTrigger>    
+</snippet>
