@@ -58,10 +58,10 @@ simply add **bower:css** or **bower:js** to **index.html** depending on what you
 </html>
 ```
 
-** Bonus : **
-now you can use ``bower_css`` or ``bower_css`` then hit <kbd>tab</kbd>  to complete the snippet automatically rather than completing it manually  
+**Bonus :**
+Now you can use ``bower_css`` or ``bower_css`` then hit <kbd>tab</kbd>  to complete the snippet automatically rather than completing it manually  
 
 ### Run the plugin
-you have two options :
-* hit <kbd>ctrl</kbd> + <kbd>y</kbd>   to execute the plugin( you can change the key )
-* fire up the command palette <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> and type ``bower injector`` and press <kbd>enter</kbd>
+You have two options :
+* Hit <kbd>ctrl</kbd> + <kbd>y</kbd>   to execute the plugin( you can change the key )
+* Fire up the command palette <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> and type ``bower injector`` and press <kbd>enter</kbd>
