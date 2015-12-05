@@ -6,9 +6,11 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
     BASE_PATH = ''
     BOWER_PATH = ''
     BOWER_COMPONENTS_PATH = ''
+    DS = os.sep
 
     def normalizeLocation(self,location):
-            return location.replace('./','')
+            not_ds = '\\' if (self.DS == '/') else '/'            
+            return location.replace('./' ,'').replace(not_ds,self.DS)
 
     def getJSON(self,url):
         with open(url) as data_file:
@@ -39,10 +41,10 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
             # check if main holds an array                    
             if (type(main) is list ):
                 for m in main:            
-                    f = folder + '/' + self.normalizeLocation(str(m))  
-                    items +=[f]                         
+                    f = folder + self.DS + self.normalizeLocation(str(m))  
+                    items +=[f]                      
             else:
-                items  += [folder + '/' + self.normalizeLocation(str(main))]
+                items  += [folder + self.DS + self.normalizeLocation(str(main))]
             
             return items
     
@@ -62,7 +64,7 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
                 [str(htmlReference('    ','js',BASE,matchObj.group()))]
 
             return {"css":css,"js":js}            
-
+      
     def htmlReference(self,space,type,base_url,file):
             if(type == 'js'):
                 return space + '<script src="' + base_url + file + '"></script>'
@@ -82,27 +84,30 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
             return {"css":css,"js":js}   
 
 
-    def run(self, edit):        
-        filename = self.view.file_name() 
-        BASE_PATH = filename.split('/')
-        del BASE_PATH[len(BASE_PATH)-1]
-        self.BASE_PATH = str("/".join(BASE_PATH))
+    def run(self, edit):    
         
-        self.BOWER_PATH  = self.BASE_PATH + "/bower.json"
-        self.BOWER_COMPONENTS_PATH  = self.BASE_PATH + "/bower_components/"
+        filename = self.view.file_name() 
+        
+        BASE_PATH = filename.split(self.DS)
+        del BASE_PATH[len(BASE_PATH)-1]
+        self.BASE_PATH = str(self.DS.join(BASE_PATH))
+
+        
+        
+        self.BOWER_PATH  = self.BASE_PATH + self.DS + "bower.json"
+        self.BOWER_COMPONENTS_PATH  = self.BASE_PATH + self.DS + "bower_components" + self.DS 
 
   
-        self.BASE = self.BASE_PATH + '/bower_components/'
-        self.BASE_URL = self.BASE_PATH + '/bower.json'
+        self.BASE = self.BASE_PATH + self.DS + 'bower_components' + self.DS 
+        self.BASE_URL = self.BASE_PATH + self.DS + 'bower.json'
+        
+        
                   
         body = self.view.substr(sublime.Region(0, self.view.size()))
         
-        newBody = re.sub(r"([\t ]*?)<!--[ ]{0,}bower:css[ ]{0,}-->([\s\S]*?)<\!--[ ]{0,}endbower[ ]{0,}-->",str("\n".join(self.getAll(self.BASE_URL)['css'])) ,body) 
-        newBody = re.sub(r"([\t ]*?)<!--[ ]{0,}bower:js[ ]{0,}-->([\s\S]*?)<\!--[ ]{0,}endbower[ ]{0,}-->",str("\n".join(self.getAll(self.BASE_URL)['js'])) ,newBody)         
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:css[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",str("\n".join(self.getAll(self.BASE_URL)['css'])) ,body) 
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:js[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",str("\n".join(self.getAll(self.BASE_URL)['js'])) ,newBody)         
         
         ff = open(filename,'w')
         ff.write(newBody) 
         ff.close()
-
-        
-        
