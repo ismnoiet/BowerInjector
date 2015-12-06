@@ -8,6 +8,12 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
     BOWER_COMPONENTS_PATH = ''
     DS = os.sep
 
+    def windowsDelimiter(self,location):
+        if(self.DS =='\\'):
+            new_location = location.replace('\\','\\\\')
+            return new_location
+        return location
+
     def normalizeLocation(self,location):
             not_ds = '\\' if (self.DS == '/') else '/'            
             return location.replace('./' ,'').replace(not_ds,self.DS)
@@ -67,9 +73,9 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
       
     def htmlReference(self,space,type,base_url,file):
             if(type == 'js'):
-                return space + '<script src="' + base_url + file + '"></script>'
+                return space + '<script src="' + self.windowsDelimiter(base_url + file) + '"></script>'
             else:
-                return space + '<link rel="stylesheet" href="' + base_url + file + '">'
+                return space + '<link rel="stylesheet" href="' + self.windowsDelimiter(base_url + file) + '">'
     
     def getAll(self,url):
             css = []
@@ -84,7 +90,7 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
             return {"css":css,"js":js}   
 
 
-    def run(self, edit):    
+    def run(self, edit):            
         
         filename = self.view.file_name() 
         
