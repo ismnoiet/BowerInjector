@@ -111,8 +111,8 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
                   
         body = self.view.substr(sublime.Region(0, self.view.size()))
         
-        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:css[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",str("\n".join(self.getAll(self.BASE_URL)['css'])) ,body) 
-        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:js[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",str("\n".join(self.getAll(self.BASE_URL)['js'])) ,newBody)         
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:css[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:css -->\n' + str("\n".join(self.getAll(self.BASE_URL)['css'])) + '\n<!-- bower:end -->' ,body) 
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:js[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:js -->\n' + str("\n".join(self.getAll(self.BASE_URL)['js'])) + '\n<!-- bower:end -->' ,newBody)         
         
         ff = open(filename,'w')
         ff.write(newBody) 
