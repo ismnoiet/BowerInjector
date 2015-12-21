@@ -63,9 +63,9 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
                     matchObj = re.match(r'(.+?)\.js$',file,re.I)        
                     matchObj2 = re.match(r'(.+?)\.css$',file,re.I)        
                     if matchObj:                                                
-                        js += [str(self.htmlReference('    ','js',self.BASE,matchObj.group()))]
+                        js += [str(self.htmlReference('    ','js',self.windowsDelimiter('./bower_components/'),matchObj.group()))]
                     elif(matchObj2):                        
-                        css += [str(self.htmlReference('    ','css',self.BASE,matchObj2.group()))]
+                        css += [str(self.htmlReference('    ','css',self.windowsDelimiter('./bower_components/'),matchObj2.group()))]
             else:                
                 [str(htmlReference('    ','js',BASE,matchObj.group()))]
 
@@ -92,8 +92,8 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):            
         
-        filename = self.view.file_name() 
-        
+        filename = self.view.file_name()       
+
         BASE_PATH = filename.split(self.DS)
         del BASE_PATH[len(BASE_PATH)-1]
         self.BASE_PATH = str(self.DS.join(BASE_PATH))
