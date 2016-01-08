@@ -2,15 +2,17 @@
 A sublime text 3 plugin that inject all bower dependencies
 in the **index.html** page of the current project
 
+## Screenshots
+![BowerInjector Screenshot](./resource/screenshot.gif)
 
-## dependencies
-you should have python 3 already installed on your machine
+## Dependencies
+you should have python 3 already installed on your machine and Sublime text 3.
 
 ## Installation
 In order to install this plugin you have two options,
 the manual option and the package control one(the easy choice)
 
-### manually
+### Manually
 You can easily install this plugin manually, simply download the zip file and extract it to sublime text   **Packages** folder
 
 ### Package Control
