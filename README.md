@@ -67,3 +67,8 @@ Now you can use ``bower_css`` or ``bower_css`` then hit <kbd>tab</kbd>  to compl
 You have two options :
 * Hit <kbd>ctrl</kbd> + <kbd>y</kbd>   to execute the plugin( you can change the key )
 * Fire up the command palette <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> and type ``bower injector`` and press <kbd>enter</kbd>
+
+### TODO
+* Inject dependencies in the right order (for example bootstrap depends on jquery ).
+* Possibility to pull in minfied versions(if exist).
+* Possibility to inject just specific package.
