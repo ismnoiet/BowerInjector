@@ -2,7 +2,7 @@
 A sublime text 3 plugin that inject all bower dependencies
 in the **index.html** page of the current project
 
-## Screenshots
+## Screenshot
 ![BowerInjector Screenshot](./resource/screenshot.gif)
 
 ## Dependencies
