@@ -33,9 +33,8 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
             return dep_folders
 
     def getMainAttr(self,folder):
-        main = self.getJSON(self.BASE + folder+'/bower.json')
+        main = self.getJSON(self.BOWER_COMPONENTS_PATH + folder+'/bower.json')
         return main["main"]
-
 
     def getMainAssets(self,folder):
             main = self.getMainAttr(folder)
@@ -76,7 +75,7 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
                 return space + '<script src="' + self.windowsDelimiter(base_url + file) + '"></script>'
             else:
                 return space + '<link rel="stylesheet" href="' + self.windowsDelimiter(base_url + file) + '">'
-    
+
     def getAll(self,url):
             css = []
             js  = []
@@ -89,30 +88,21 @@ class bowerInjectorCommand(sublime_plugin.TextCommand):
                 js  += self.orderFiles(mainAssets)['js']
             return {"css":css,"js":js}   
 
-
     def run(self, edit):            
-        
+               
         filename = self.view.file_name()       
 
         BASE_PATH = filename.split(self.DS)
         del BASE_PATH[len(BASE_PATH)-1]
         self.BASE_PATH = str(self.DS.join(BASE_PATH))
-
-        
-        
-        self.BOWER_PATH  = self.BASE_PATH + self.DS + "bower.json"
-        self.BOWER_COMPONENTS_PATH  = self.BASE_PATH + self.DS + "bower_components" + self.DS 
-
-  
-        self.BASE = self.BASE_PATH + self.DS + 'bower_components' + self.DS 
-        self.BASE_URL = self.BASE_PATH + self.DS + 'bower.json'
-        
-        
-                  
+                 
+        self.BOWER_PATH = self.BASE_PATH + self.DS + 'bower.json'
+        self.BOWER_COMPONENTS_PATH  = self.BASE_PATH + self.DS + "bower_components" + self.DS         
+                                  
         body = self.view.substr(sublime.Region(0, self.view.size()))
         
-        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:css[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:css -->\n' + str("\n".join(self.getAll(self.BASE_URL)['css'])) + '\n<!-- bower:end -->' ,body) 
-        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:js[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:js -->\n' + str("\n".join(self.getAll(self.BASE_URL)['js'])) + '\n<!-- bower:end -->' ,newBody)         
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:css[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:css -->\n' + str("\n".join(self.getAll(self.BOWER_PATH)['css'])) + '\n<!-- bower:end -->' ,body) 
+        newBody = re.sub(r"([\t ]*?)<!--[\t ]*bower:js[\t ]*-->([\s\S]*?)<\!--[\t ]*endbower[\t ]*-->",'<!-- bower:js -->\n' + str("\n".join(self.getAll(self.BOWER_PATH)['js'])) + '\n<!-- bower:end -->' ,newBody)         
         
         ff = open(filename,'w')
         ff.write(newBody) 
